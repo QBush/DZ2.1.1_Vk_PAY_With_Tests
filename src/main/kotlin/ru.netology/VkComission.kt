@@ -31,6 +31,7 @@ fun main() {
 
 }
 
+@JvmOverloads
 fun transferComission(cardType: CardType = CardType.VK_PAY, monthTransfersAmount: Int = 0, transferAmount: Int): Int {
     if (!checkingLimits(cardType, monthTransfersAmount, transferAmount)) {
         return 0
@@ -48,11 +49,10 @@ fun transferComission(cardType: CardType = CardType.VK_PAY, monthTransfersAmount
 fun mastercardAndMaestroComission(monthTransfersAmount: Int, transferAmount: Int): Int {
     var comission = when {
         (monthTransfersAmount + transferAmount) in MASTERCARD_AND_MAESTRO_LOWER_LIMIT..MASTERCARD_AND_MAESTRO_UPPER_LIMIT -> 0
-        (monthTransfersAmount + transferAmount) in 0..(MASTERCARD_AND_MAESTRO_LOWER_LIMIT - 1) -> ((transferAmount * MASTERCARD_AND_MAESTRO_PROCENT_COMISSION) + MASTERCARD_AND_MAESTRO_MINIMAL_COMISSION).toInt()
-        monthTransfersAmount > MASTERCARD_AND_MAESTRO_UPPER_LIMIT -> (transferAmount * MASTERCARD_AND_MAESTRO_PROCENT_COMISSION + MASTERCARD_AND_MAESTRO_MINIMAL_COMISSION).toInt()
+        (monthTransfersAmount + transferAmount) in 0..(MASTERCARD_AND_MAESTRO_LOWER_LIMIT - 1)
+                || monthTransfersAmount > MASTERCARD_AND_MAESTRO_UPPER_LIMIT
+        -> (transferAmount * MASTERCARD_AND_MAESTRO_PROCENT_COMISSION + MASTERCARD_AND_MAESTRO_MINIMAL_COMISSION).toInt()
         else -> (((monthTransfersAmount + transferAmount - MASTERCARD_AND_MAESTRO_UPPER_LIMIT) * MASTERCARD_AND_MAESTRO_PROCENT_COMISSION) + MASTERCARD_AND_MAESTRO_MINIMAL_COMISSION).toInt()
-
-
     }
     return comission
 }
