@@ -16,18 +16,6 @@ enum class CardType { MASTERCARD, MAESTRO, VISA, МИР, VK_PAY }
 fun main() {
     var Comission1 = transferComission(CardType.MAESTRO, 80_000__00, 10_000__00)
     println("Комиссия: ${visualSum(Comission1)} \n")
-    var Comission2 = transferComission(CardType.MASTERCARD, 599_000__00, 5_000__00)
-    println("Комиссия: ${visualSum(Comission2)} \n")
-    var Comission3 = transferComission(CardType.VISA, 90_000__00, 152_000__00)
-    println("Комиссия: ${visualSum(Comission3)} \n")
-    var Comission4 = transferComission(CardType.МИР, 40_000__00, 15_000__00)
-    println("Комиссия: ${visualSum(Comission4)} \n")
-    var Comission5 = transferComission(monthTransfersAmount = 5_000__00, transferAmount = 25_000__00)
-    println("Комиссия: ${visualSum(Comission5)} \n")
-    var Comission6 = transferComission(monthTransfersAmount = 35_000__00, transferAmount = 25_000__00)
-    println("Комиссия: ${visualSum(Comission6)} \n")
-    var Comission7 = transferComission(transferAmount = 10_000__00)
-    println("Комиссия: ${visualSum(Comission7)} \n")
 
 }
 
