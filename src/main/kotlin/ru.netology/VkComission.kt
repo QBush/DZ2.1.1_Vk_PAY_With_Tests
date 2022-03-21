@@ -16,21 +16,10 @@ enum class CardType { MASTERCARD, MAESTRO, VISA, МИР, VK_PAY }
 fun main() {
     var Comission1 = transferComission(CardType.MAESTRO, 80_000__00, 10_000__00)
     println("Комиссия: ${visualSum(Comission1)} \n")
-    var Comission2 = transferComission(CardType.MASTERCARD, 599_000__00, 5_000__00)
-    println("Комиссия: ${visualSum(Comission2)} \n")
-    var Comission3 = transferComission(CardType.VISA, 90_000__00, 152_000__00)
-    println("Комиссия: ${visualSum(Comission3)} \n")
-    var Comission4 = transferComission(CardType.МИР, 40_000__00, 15_000__00)
-    println("Комиссия: ${visualSum(Comission4)} \n")
-    var Comission5 = transferComission(monthTransfersAmount = 5_000__00, transferAmount = 25_000__00)
-    println("Комиссия: ${visualSum(Comission5)} \n")
-    var Comission6 = transferComission(monthTransfersAmount = 35_000__00, transferAmount = 25_000__00)
-    println("Комиссия: ${visualSum(Comission6)} \n")
-    var Comission7 = transferComission(transferAmount = 10_000__00)
-    println("Комиссия: ${visualSum(Comission7)} \n")
 
 }
 
+@JvmOverloads
 fun transferComission(cardType: CardType = CardType.VK_PAY, monthTransfersAmount: Int = 0, transferAmount: Int): Int {
     if (!checkingLimits(cardType, monthTransfersAmount, transferAmount)) {
         return 0
@@ -48,11 +37,10 @@ fun transferComission(cardType: CardType = CardType.VK_PAY, monthTransfersAmount
 fun mastercardAndMaestroComission(monthTransfersAmount: Int, transferAmount: Int): Int {
     var comission = when {
         (monthTransfersAmount + transferAmount) in MASTERCARD_AND_MAESTRO_LOWER_LIMIT..MASTERCARD_AND_MAESTRO_UPPER_LIMIT -> 0
-        (monthTransfersAmount + transferAmount) in 0..(MASTERCARD_AND_MAESTRO_LOWER_LIMIT - 1) -> ((transferAmount * MASTERCARD_AND_MAESTRO_PROCENT_COMISSION) + MASTERCARD_AND_MAESTRO_MINIMAL_COMISSION).toInt()
-        monthTransfersAmount > MASTERCARD_AND_MAESTRO_UPPER_LIMIT -> (transferAmount * MASTERCARD_AND_MAESTRO_PROCENT_COMISSION + MASTERCARD_AND_MAESTRO_MINIMAL_COMISSION).toInt()
+        (monthTransfersAmount + transferAmount) in 0..(MASTERCARD_AND_MAESTRO_LOWER_LIMIT - 1)
+                || monthTransfersAmount > MASTERCARD_AND_MAESTRO_UPPER_LIMIT
+        -> (transferAmount * MASTERCARD_AND_MAESTRO_PROCENT_COMISSION + MASTERCARD_AND_MAESTRO_MINIMAL_COMISSION).toInt()
         else -> (((monthTransfersAmount + transferAmount - MASTERCARD_AND_MAESTRO_UPPER_LIMIT) * MASTERCARD_AND_MAESTRO_PROCENT_COMISSION) + MASTERCARD_AND_MAESTRO_MINIMAL_COMISSION).toInt()
-
-
     }
     return comission
 }
