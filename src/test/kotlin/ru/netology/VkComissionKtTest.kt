@@ -176,7 +176,7 @@ class VkComissionKtTest {
         val cardType = CardType.MAESTRO
         val monthTransfersAmount = 450_000__00
         val transferAmount = 150_000__00
-        val expectedResult = true
+        val expectedResult = false
 
         val result = checkingLimits(
             cardType = cardType,
